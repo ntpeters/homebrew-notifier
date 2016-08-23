@@ -12,11 +12,13 @@ PACKAGES_TO_UPGRADE="${*:2}"
 PACKAGE_COUNT="$(( $# - 1 ))"
 BREW=$(which brew)
 TERMINAL_NOTIFIER=$(which terminal-notifier)
+BEER_ICON=$HOME/.homebrew-notifier/beer-icon.png
 
 if [ -n "$PACKAGES_TO_UPGRADE" ] && [ $PACKAGE_COUNT -gt 0 ]; then
     echo "Updating packages: $PACKAGES_TO_UPGRADE"
 
     $TERMINAL_NOTIFIER -sender com.apple.Terminal \
+        -appIcon "$BEER_ICON" \
         -title "Homebrew Updating..." \
         -subtitle "Update in progress" \
         -message "Updating $PACKAGE_COUNT formulae..."
@@ -31,6 +33,7 @@ if [ -n "$CLEANUP" ] && $CLEANUP; then
     echo "Cleaning brew..."
 
     $TERMINAL_NOTIFIER -sender com.apple.Terminal \¬
+        -appIcon "$BEER_ICON" \
         -title "Homebrew Cleaning..." \¬
         -subtitle "Cleanup in progress" \¬
         -message "Removing old versions, downloads, and caches."¬
@@ -43,6 +46,7 @@ if [ -n "$BREW_UPGRADE_STATUS" ]; then
         echo "Upgrades successful! 🍻"
 
         $TERMINAL_NOTIFIER -sender com.apple.Terminal \
+            -appIcon "$BEER_ICON" \
             -title "Homebrew Updates Complete" \
             -subtitle "Successfully updated the following formulae:" \
             -message "$PACKAGES_TO_UPGRADE" \
@@ -52,6 +56,7 @@ if [ -n "$BREW_UPGRADE_STATUS" ]; then
         echo "Upgrades failed!"
 
         $TERMINAL_NOTIFIER -sender com.apple.Terminal \
+            -appIcon "$BEER_ICON"\
             -title "Homebrew Updates Failed" \
             -subtitle "Failed to update some or all of the following formulae:" \
             -message "$PACKAGES_TO_UPGRADE" \

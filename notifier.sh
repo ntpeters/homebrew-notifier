@@ -38,6 +38,7 @@ TERMINAL_NOTIFIER=$(which terminal-notifier)
 NOTIFIER_PATH=$HOME=/.homebrew-notifier
 UPGRADE_SCRIPT=$NOTIFIER_PATH/.upgrade.sh
 UPGRADE_COMMAND="PATH=/usr/local/bin:\$PATH $UPGRADE_SCRIPT"
+BEER_ICON=$NOTIFIER_PATH/beer-icon.png
 
 echo "updating brew..."
 
@@ -54,6 +55,7 @@ if [ -n "$updatable" ] && [ -e "$TERMINAL_NOTIFIER" ]; then
         $UPGRADE_SCRIPT $CLEANUP "$updatable"
     elif [ "$UPGRADE" = "prompt" ] && [ -f "$UPGRADE_SCRIPT" ]; then
         $TERMINAL_NOTIFIER -sender com.apple.Terminal \¬
+        -appIcon "$BEER_ICON" \
         -title "Homebrew Updates Available" \¬
         -subtitle "Click here to update the following formulae:" \¬
         -message "$updatable" \¬
@@ -61,6 +63,7 @@ if [ -n "$updatable" ] && [ -e "$TERMINAL_NOTIFIER" ]; then
         -execute "$UPGRADE_COMMAND $CLEANUP $updatable"¬
     else¬
         $TERMINAL_NOTIFIER -sender com.apple.Terminal \¬
+        -appIcon "$BEER_ICON" \
         -title "Homebrew Updates Available" \¬
         -subtitle "The following formulae are outdated:" \¬
         -message "$updatable" \¬
