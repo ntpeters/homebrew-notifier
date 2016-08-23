@@ -10,8 +10,8 @@ added script to idempotently install it as a daily cron task.
 curl -fsS https://raw.githubusercontent.com/grantovich/homebrew-notifier/master/install.sh | sh
 ```
 
-Note: default behavior is to prompt for upgrades, if any are available. To
-change this, see usage below.
+Note: default behavior is to prompt for upgrades, if any are available, and
+perform cleanup. To change this, see usage below.
 
 ##Usage
 Cron will execute the notifier script daily, which will check for any oudated,
@@ -28,3 +28,10 @@ notification is clicked, these formulae will be upgraded. Providing a value of
 
 After the upgrade process is complete, a notification will be displayed
 indicating if the upgrades succeeded or failed.
+
+###Cleanup
+```
+--cleanup
+```
+Providing the cleanup option will perform a `brew cleanup` after upgrading
+packages.

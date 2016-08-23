@@ -15,10 +15,10 @@ chmod +x "$UPDATE_SCRIPT"
 if crontab -l | grep -q "notifier\.sh"; then
   echo "Crontab entry already exists, skipping..."
 else
-  echo "0 11 * * * PATH=/usr/local/bin:\$PATH $NOTIFIER_SCRIPT --upgrade prompt" | crontab -
+  echo "0 11 * * * PATH=/usr/local/bin:\$PATH $NOTIFIER_SCRIPT --upgrade prompt --cleanup" | crontab -
 fi
 
 echo
 echo "Notifier installed. You'll be notified of brew updates at 11am every day."
 echo "Checking for updates right now..."
-$NOTIFIER_SCRIPT --upgrade prompt
+$NOTIFIER_SCRIPT --upgrade prompt --cleanup

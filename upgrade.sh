@@ -1,7 +1,8 @@
 #!/bin/bash
 
-PACKAGES_TO_UPGRADE="$1"
-PACKAGE_COUNT="$#"
+CLEANUP=$1
+PACKAGES_TO_UPGRADE="${*:2}"
+PACKAGE_COUNT="$(( $# - 1 ))"
 BREW=$(which brew)
 TERMINAL_NOTIFIER=$(which terminal-notifier)
 
@@ -13,6 +14,15 @@ if [ -n "$PACKAGES_TO_UPGRADE" ] && [ $PACKAGE_COUNT -gt 0 ]; then
 
     $BREW upgrade $(echo -n "$PACKAGES_TO_UPGRADE")
     BREW_UPGRADE_STATUS=$?
+fi
+
+if [ -n "$CLEANUP" ] && $CLEANUP; then
+    $TERMINAL_NOTIFIER -sender com.apple.Terminal \¬
+        -title "Homebrew Cleaning..." \¬
+        -subtitle "Cleanup in progress" \¬
+        -message "Removing old versions, downloads, and caches."¬
+
+    $BREW cleanup > /dev/null 2>&1¬
 fi
 
 if [ -n "$BREW_UPGRADE_STATUS" ]; then

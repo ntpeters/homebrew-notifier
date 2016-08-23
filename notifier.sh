@@ -1,12 +1,17 @@
 #!/bin/bash
 
 UPGRADE="off"
+CLEANUP=false
 while [[ $# -ge 1 ]]
 do
     key="$1"
     case $key in
         "--upgrade")
             UPGRADE="$2"
+            shift
+            ;;
+        "--cleanup")
+            CLEANUP=true
             shift
             ;;
         *)
@@ -30,14 +35,14 @@ updatable=$(comm -1 -3 <(echo "$pinned") <(echo "$outdated") | xargs)
 
 if [ -n "$updatable" ] && [ -e "$TERMINAL_NOTIFIER" ]; then
     if [ "$UPGRADE" = "auto" ] && [ -f "$UPGRADE_SCRIPT" ]; then
-        $UPGRADE_SCRIPT "$updatable"
+        $UPGRADE_SCRIPT $CLEANUP "$updatable"
     elif [ "$UPGRADE" = "prompt" ] && [ -f "$UPGRADE_SCRIPT" ]; then
         $TERMINAL_NOTIFIER -sender com.apple.Terminal \¬
         -title "Homebrew Updates Available" \¬
         -subtitle "Click here to update the following formulae:" \¬
         -message "$updatable" \¬
         -sound default \¬
-        -execute "$UPGRADE_COMMAND $updatable"¬
+        -execute "$UPGRADE_COMMAND $CLEANUP $updatable"¬
     else¬
         $TERMINAL_NOTIFIER -sender com.apple.Terminal \¬
         -title "Homebrew Updates Available" \¬
