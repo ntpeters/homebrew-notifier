@@ -27,7 +27,8 @@ notification is clicked, these formulae will be upgraded. Providing a value of
 `auto` will cause these formulae to be updated automatically.
 
 After the upgrade process is complete, a notification will be displayed
-indicating if the upgrades succeeded or failed.
+indicating if the upgrades succeeded or failed. In the event of a failure, you
+can click on the notification to view a log of the failed upgrade process.
 
 ###Cleanup
 ```
